@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 class Counter extends Component {
+
   render() {
     return (
       <div className="App">
@@ -8,8 +9,8 @@ class Counter extends Component {
           <h1>{this.props.counter}</h1>
         </div>
         <div>
-          <button onClick={this.props.handleClick} className="button">Increase</button>
-          <button className="button">Decrease</button>
+          <button onClick={this.props.up} className="button">Increase</button>
+          <button onClick={this.props.down} className="button">Decrease</button>
         </div>
       </div>
 

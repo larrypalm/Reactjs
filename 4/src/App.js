@@ -8,16 +8,22 @@ class App extends Component {
     counter: 0,
   }
 
-  handleClick = (event) => {
+  up = (event) => {
 
-    this.setState({counter: event.target.value+1});
+    this.setState({counter: event.target.value++});
+
+  }
+
+  down = (event) => {
+
+    this.setState({counter: event.target.value--});
 
   }
 
   render() {
     return (
       <div className="App">
-        <Counter handleClick={this.handleClick} counter={this.state.counter}/>
+        <Counter handleClick={this.up, this.down} counter={this.state.counter}/>
       </div>
     );
   }
