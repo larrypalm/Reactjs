@@ -1,44 +1,68 @@
 import React, { Component } from 'react';
+import './App.css';
 
-class SearchForm extends Component {
+class App extends Component {
+
   state = {
-    data: [],
-    searchTerm: '' //value={this.state.searchTerm}
+    movies: [],
+    search: "",
+    genres: [],
   }
 
   componentDidMount() {
-    this.getDataFromApi(); //When <App /> is in the DOM, load the data
+    this.fetchMovies();
   }
 
-  getDataFromApi = () => {
+  fetchMovies = () => {
     fetch('https://fend-api.herokuapp.com/movies?_limit=20')
       .then(response => response.json())
       .then(data => {
-        this.setState({ data: data });
-      })
-      .catch(error => {
-        this.setState({ error: error })
-      })
+        this.setState({movies: data});
+      });
   }
-  onChange = e => this.setState({[e.target.name] : e.target.value})
+
+
+
+  onChange = (event) => {
+    this.setState({[event.target.name]: event.target.value})
+  }
 
   render() {
-    const { searchTerm, data } = this.state;
-    const list = data.map((item, index) => {
-      if(searchTerm){
-        return item.title.includes(searchTerm) ? <div key={index}>{item.title} </div> : ''
-      }else{
+    const {movies, search, value} = this.state;
 
-        return <div key={index}>{item.name} </div>
+    const movieList = movies.map((movie, index) => {
+      if(search){
+        return movie.title.includes(search) ?
+        <div>
+          <h3 key={index}>{movie.title}</h3>
+          <p>{movie.imdbRating}</p>
+          <img src={movie.posterurl} alt="movieposter"/>
+        </div>
+        : ""
       }
-    });
+      // else if(value){
+      //   return movie.title
+      // }
+      else {
+        return <div key={index}>{movie.name}</div>
+      }
+
+    })
     return (
       <div className="App">
-        {list}
-        <input type="text" name="searchTerm" onChange={this.onChange} value={this.state.searchTerm} />
+        <input onChange={this.onChange} name="search"/>
+        <select value={this.state.value} >
+          <option value="Crime">Crime</option>
+          <option value="Drama">Drama</option>
+          <option value="Action">Action</option>
+          <option value="History">History</option>
+          <option value="Biography">Biography</option>
+        </select>
+        {movieList}
+
       </div>
     );
   }
 }
 
-export default SearchForm;
+export default App;
