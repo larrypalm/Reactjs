@@ -5,6 +5,7 @@ class App extends Component {
 
   state = {
     movies: [],
+    search: "",
   }
 
   componentDidMount() {
@@ -19,20 +20,26 @@ class App extends Component {
       });
   }
 
+  onChange = (event) => {
+    this.setState({[event.target.name]: event.target.value})
+  }
+
   render() {
-    const movieList = this.state.movies.map((movie, index) => {
-      return (
+    const {movies, search} = this.state;
+    const movieList = movies.map((movie, index) => {
+      return(
         <div key={index}>
           <h3>{movie.title}</h3>
           <p className="Movie" >{movie.imdbRating}</p>
-          <img src={movie.posterurl}></img>
+          <img src={movie.posterurl} alt="poster"></img>
         </div>
       );
+
     })
     return (
       <div className="App">
+        <input onChange={this.onChange} />
         {movieList}
-        <button onClick={this.fetchMovies}>klick</button>
       </div>
     );
   }
