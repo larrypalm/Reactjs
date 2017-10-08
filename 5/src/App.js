@@ -11,12 +11,20 @@ class App extends Component {
   fetchFromApi = () => {
     fetch('https://fend-api.herokuapp.com/movies?_limit=20')
       .then(response => response.json())
-      .then(data => console.log(data));
+      .then(data => {
+        this.setState({movies: data});
+      })
+      .catch(error => console.log(error));
   }
 
   render() {
+    const movieList = this.state.movies.map((movie, index) => {
+      return <p key={index}>{movie.title} - {movie.year}</p>
+    })
+
     return (
       <div className="App">
+        {movieList}
         <button onClick={this.fetchFromApi}>Click me</button>
       </div>
     );
