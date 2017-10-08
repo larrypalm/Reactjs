@@ -27,18 +27,23 @@ class App extends Component {
   render() {
     const {movies, search} = this.state;
     const movieList = movies.map((movie, index) => {
-      return(
-        <div key={index}>
-          <h3>{movie.title}</h3>
-          <p className="Movie" >{movie.imdbRating}</p>
-          <img src={movie.posterurl} alt="poster"></img>
+      if(search){
+        return movie.title.includes(search) ?
+        <div>
+          <h3 key={index}>{movie.title}</h3>
+          <p>{movie.imdbRating}</p>
+          <img src={movie.posterurl} alt="movieposter"/>
         </div>
-      );
+        : ""
+      }
+      else {
+        return <div key={index}>{movie.name}</div>
+      }
 
     })
     return (
       <div className="App">
-        <input onChange={this.onChange} />
+        <input onChange={this.onChange} name="search"/>
         {movieList}
       </div>
     );
