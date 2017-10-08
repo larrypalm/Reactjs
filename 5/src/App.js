@@ -7,25 +7,32 @@ class App extends Component {
     movies: [],
   }
 
-  //Funktion för att hämta från App-intro
-  fetchFromApi = () => {
+  componentDidMount() {
+    this.fetchMovies();
+  }
+
+  fetchMovies = () => {
     fetch('https://fend-api.herokuapp.com/movies?_limit=20')
       .then(response => response.json())
       .then(data => {
         this.setState({movies: data});
-      })
-      .catch(error => console.log(error));
+      });
   }
 
   render() {
     const movieList = this.state.movies.map((movie, index) => {
-      return <p key={index}>{movie.title} - {movie.year}</p>
+      return (
+        <div key={index}>
+          <h3>{movie.title}</h3>
+          <p className="Movie" >{movie.imdbRating}</p>
+          <img src={movie.posterurl}></img>
+        </div>
+      );
     })
-
     return (
       <div className="App">
         {movieList}
-        <button onClick={this.fetchFromApi}>Click me</button>
+        <button onClick={this.fetchMovies}>klick</button>
       </div>
     );
   }
