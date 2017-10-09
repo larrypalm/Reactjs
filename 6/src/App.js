@@ -1,65 +1,43 @@
 import React, { Component } from 'react';
 import './App.css';
+import SelectGenre from './components/SelectGenre.js';
+import List from './components/List.js';
 
 class App extends Component {
 
   state = {
-    movies: [],
-    search: "",
-    genres: [],
+    allMovies: [],  //array for all movies
+    allGenres: [],  //array for all genres
+    genre: "",      //selected genre
   }
 
   componentDidMount() {
     this.fetchMovies();
+  }
+  //function to filter movies by selected genre
+  //<option value=""> === e.target.value
+  filterByGenre = (event) => {
+    const allGenres = this.state.allMovies.filter(movie =>{
+      return movie.genre.includes(event.target.value);
+    });
+    this.setState({allGenres: allGenres, genre: event.target.value});
   }
 
   fetchMovies = () => {
     fetch('https://fend-api.herokuapp.com/movies?_limit=20')
       .then(response => response.json())
       .then(data => {
-        this.setState({movies: data});
+        this.setState({allMovies: data});
       });
   }
 
-
-
-  onChange = (event) => {
-    this.setState({[event.target.name]: event.target.value})
-  }
-
   render() {
-    const {movies, search, value} = this.state;
-
-    const movieList = movies.map((movie, index) => {
-      if(search){
-        return movie.title.includes(search) ?
-        <div>
-          <h3 key={index}>{movie.title}</h3>
-          <p>{movie.imdbRating}</p>
-          <img src={movie.posterurl} alt="movieposter"/>
-        </div>
-        : ""
-      }
-      // else if(value){
-      //   return movie.title
-      // }
-      else {
-        return <div key={index}>{movie.name}</div>
-      }
-
-    })
+    const {genre, allGenres, allMovies} = this.state;
+    let moviesToShow = genre ? allGenres : allMovies;
     return (
       <div className="App">
-        <input onChange={this.onChange} name="search"/>
-        <select value={this.state.value} >
-          <option value="Crime">Crime</option>
-          <option value="Drama">Drama</option>
-          <option value="Action">Action</option>
-          <option value="History">History</option>
-          <option value="Biography">Biography</option>
-        </select>
-        {movieList}
-
+        <SelectGenre onChange = {this.filterByGenre} value={genre}/>
+        <List data={moviesToShow}/>
       </div>
     );
   }
