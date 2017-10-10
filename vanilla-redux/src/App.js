@@ -1,37 +1,40 @@
 import React, { Component } from 'react';
 import { createStore } from 'redux';
+import counter from './reducer.js';
+import './App.css';
 
-function counter(state= 0, action){
-  switch(action.type){
-    case 'INCREMENT':
-      return state+1
-    case 'DECREMENT':
-      return state-1
-    case 'DOUBLE':
-      return state*2
-    default:
-      return state
-  }
-}
 
+//Store
 let store = createStore(counter);
 
-store.subscribe(() =>
-  console.log(store.getState())
-)
-
-store.dispatch({type: 'INCREMENT'})
-store.dispatch({type: 'INCREMENT'})
-store.dispatch({type: 'INCREMENT'})
-store.dispatch({type: 'INCREMENT'})
-store.dispatch({type: 'DECREMENT'})
-store.dispatch({type: 'DOUBLE'})
-
 class App extends Component {
+
+  state = {
+    counter: 0,
+  }
+
+  componentDidMount() {
+    store.subscribe(() =>
+      this.setState({counter: store.getState()})
+    )
+  }
+  increment = () => {
+    store.dispatch({type: 'INCREMENT'});
+  }
+  decrement = () => {
+    store.dispatch({type: 'DECREMENT'});
+  }
+  double = () => {
+    store.dispatch({type: 'DOUBLE'});
+  }
+
   render() {
     return (
       <div className="App">
-
+        <h1>{this.state.counter}</h1>
+        <button onClick={this.increment}>Increment</button>
+        <button onClick={this.decrement}>Decrement</button>
+        <button onClick={this.double}>Double</button>
       </div>
     );
   }
