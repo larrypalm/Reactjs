@@ -6,9 +6,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Button primary title="Click me now!"/>
-        <Button success title="Click me now!"/>
-        <Button danger title="Click me now!"/>
+        <Button primary title="Click me for primary!"/>
+        <Button success title="Click me for success!"/>
+        <Button danger title="Click me for danger!"/>
       </div>
     );
   }
