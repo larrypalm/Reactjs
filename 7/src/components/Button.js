@@ -12,6 +12,9 @@ function Button (props) {
   else if(props.danger){
     className = 'btn btn-danger';
   }
+  else {
+    className = 'btn';
+  }
   return(
 
     <button className={className}>
