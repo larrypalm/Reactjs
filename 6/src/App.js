@@ -23,6 +23,11 @@ class App extends Component {
     this.setState({allGenres: allGenres, genre: event.target.value});
   }
 
+  //generic click-handler
+  onChange = (event) => {
+    this.setState([event.target.value]: event.target.value);
+  }
+
   fetchMovies = () => {
     fetch('https://fend-api.herokuapp.com/movies?_limit=20')
       .then(response => response.json())

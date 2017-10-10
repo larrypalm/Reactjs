@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 function SelectGenre(props) {
   return (
-    <select>
+    <select onChange={props.onChange} value={props.value}>
       <option value="">All</option>
       <option value="Drama">Drama</option>
       <option value="Action">Action</option>
