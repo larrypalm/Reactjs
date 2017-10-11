@@ -1,37 +1,23 @@
 import React, { Component } from 'react';
-import { createStore } from 'redux';
-import counter from './reducer.js';
 import './App.css';
-
-
-//Store
-let store = createStore(counter);
+import {incrementCounter, decrementCounter, doubleCounter} from './actions.js';
 
 class App extends Component {
 
-  state = {
-    counter: 0,
-  }
-
-  componentDidMount() {
-    store.subscribe(() =>
-      this.setState({counter: store.getState()})
-    )
-  }
   increment = () => {
-    store.dispatch({type: 'INCREMENT'});
+    this.props.store.dispatch(incrementCounter());
   }
   decrement = () => {
-    store.dispatch({type: 'DECREMENT'});
+    this.props.store.dispatch(decrementCounter());
   }
   double = () => {
-    store.dispatch({type: 'DOUBLE'});
+    this.props.store.dispatch(doubleCounter());
   }
 
   render() {
     return (
       <div className="App">
-        <h1>{this.state.counter}</h1>
+        <h1>{this.props.store.getState()}</h1>
         <button onClick={this.increment}>Increment</button>
         <button onClick={this.decrement}>Decrement</button>
         <button onClick={this.double}>Double</button>
