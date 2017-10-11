@@ -2,7 +2,7 @@ import React from 'react';
 
 function InputField(props){
   return(
-    <input/>
+    <input onChange={props.onChange} type="text" value={props.value}/>
   );
 }
 

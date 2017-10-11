@@ -6,13 +6,19 @@ import InputField from './InputField.js';
 
 class App extends Component {
 
+  state = {
+    value: "",
+  }
+
   add = () => {
     /* addTodo calls the dispatch function from props with our values
      * generate a not so unique ID so we can keep track of the todo and remove it */
     this.props.addTodo({
-      content: "Hey",
-      id: Math.floor(Math.random() * 5) + 1
+      content: this.state.value,
+      id: Math.floor(Math.random() * 50) + 1,
+      complete: false,
     })
+    this.setState({value: ""});
   }
 
   remove = () => {
@@ -24,13 +30,23 @@ class App extends Component {
     })
   }
 
+  onChange = (event) =>{
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
   render() {
     //Both state and our functions are stored in props, redux state is synced to props
-    console.log(this.props.todos)
+    const todoList = this.props.todos.map(todo =>
+      <div key={todo.id}>
+        <p>{todo.content}</p>
+        <p>Completed: {todo.complete ? "Yes" : "No"}</p>
+      </div>
+    )
+
     return (
       <div className="App">
         <div>
-          <InputField/>
+          <input onChange={this.onChange} name = "value" value = {this.props.value}/>
         </div>
         <button
             className="button"
@@ -42,6 +58,7 @@ class App extends Component {
             onClick={this.remove}>
             Remove
         </button>
+        {todoList}
       </div>
     );
   }
@@ -58,7 +75,8 @@ class App extends Component {
 function mapDispatchToProps(dispatch){
   return{
     addTodo: todo => dispatch(addTodo(todo)),
-    removeTodo: todo => dispatch(removeTodo(todo))
+    removeTodo: todo => dispatch(removeTodo(todo)),
+    setCompleted: todo => dispatch(addCompleted(todo))
   }
 }
 
@@ -73,6 +91,7 @@ function mapDispatchToProps(dispatch){
 function mapStateToProps(state){
   return {
     todos: state
+
   }
 }
 /**

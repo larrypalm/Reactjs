@@ -1,12 +1,12 @@
 
 /**
- * Our only state is an array of todos, so the default value should be 
+ * Our only state is an array of todos, so the default value should be
  * empty array, or else it will be undefined, and we do not want that.
  * Because we named our value `payload` in our action creator it will have
  * the same name here. If we want to add it, push into the cloned state,
  * or use spread syntax.
- * @param {Array} state 
- * @param {Object} action 
+ * @param {Array} state
+ * @param {Object} action
  * @return {Object}
  */
 export default function todos(state = [], action){
@@ -19,6 +19,8 @@ export default function todos(state = [], action){
       //id we want to remove. check if the passed todo in payload
       //matches the one in state. Filter always returns a new array.
       return state.filter(todo => todo.id !== action.payload.id)
+    case "SET_COMPLETE"
+      return state.map
     default:
       return state;
   }
