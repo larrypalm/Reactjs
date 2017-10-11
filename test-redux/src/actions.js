@@ -1,7 +1,3 @@
-export const increment =  {
-    type: 'INCREMENT'
-}
-
 export function incrementCounter() {
   return {
     type: 'INCREMENT'

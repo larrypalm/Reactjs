@@ -6,26 +6,33 @@ import {incrementCounter, decrementCounter, doubleCounter} from './actions.js';
 
 class App extends Component {
 
-  increment = () => {
-    this.props.store.dispatch(incrementCounter());
-  }
-  decrement = () => {
-    this.props.store.dispatch(decrementCounter());
-  }
-  double = () => {
-    this.props.store.dispatch(doubleCounter());
-  }
-
   render() {
     return (
       <div className="App">
-        <h1>{this.props.store.getState()}</h1>
-        <button onClick={this.increment}>Increment</button>
-        <button onClick={this.decrement}>Decrement</button>
-        <button onClick={this.double}>Double</button>
+        <h1>{this.props.counter}</h1>
+        <button onClick={this.props.increment}>Increment</button>
+        <button onClick={this.props.decrement}>Decrement</button>
+        <button onClick={this.props.double}>Double</button>
       </div>
     );
   }
 }
 
-export default connect(App);
+//define our global state
+function mapStateToProps (state){
+  return{
+    counter: state
+  }
+}
+
+//make dispatch-functions into props
+//define the name of what till happen in import actions
+function mapDispatchToProps(dispatch){
+  return{
+    increment: () => dispatch (incrementCounter()),
+    decrement: () => dispatch (decrementCounter()),
+    double: () => dispatch (doubleCounter())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
