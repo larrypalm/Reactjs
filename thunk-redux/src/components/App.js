@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators} from 'redux';
+import * as actions from '../actions';
 import '../App.css';
-
 
 class App extends Component {
 
@@ -12,7 +14,7 @@ class App extends Component {
     fetch('http://fend-api.herokuapp.com/movies?_limit=20')
       .then(response => response.json)
       .then(movies =>
-        this.setState()
+        this.props.addMovies(movies);
       )
   }
 
@@ -25,4 +27,17 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  }
+}
+
+function mapStateToProps(state){
+  return {
+    movies: state.movies
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
