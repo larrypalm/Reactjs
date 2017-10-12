@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators} from 'redux';
-import * as actions from '../actions';
+import * as actions from '../actions/actions.js';
 import '../App.css';
 
 class App extends Component {
@@ -11,11 +11,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    fetch('http://fend-api.herokuapp.com/movies?_limit=20')
-      .then(response => response.json)
-      .then(movies =>
-        this.props.addMovies(movies);
-      )
+    this.props.actions.addMovies();
   }
 
   render() {
