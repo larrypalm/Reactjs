@@ -7,17 +7,27 @@ import '../App.css';
 class App extends Component {
 
   state = {
-    movies: ""
+    movies: "",
+    user: ""
   }
 
   componentDidMount(){
     this.props.actions.addMovies();
   }
 
+  add = () => {
+
+    this.props.actions.addUser({
+      name: "gustav",
+      age: 25
+    });
+    this.setState({user: ""});
+  }
+
   render() {
     return (
       <div className="App">
-
+        <button onClick={this.add}>Add user</button>
       </div>
     );
   }
@@ -31,7 +41,8 @@ function mapDispatchToProps(dispatch){
 
 function mapStateToProps(state){
   return {
-    movies: state.movies
+    movies: state.movies,
+    user: state.user
   }
 }
 
