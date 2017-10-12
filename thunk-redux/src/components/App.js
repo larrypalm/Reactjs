@@ -18,15 +18,21 @@ class App extends Component {
   add = () => {
 
     this.props.actions.addUser({
-      name: "gustav",
+      name: this.state.user,
       age: 25
     });
     this.setState({user: ""});
+
+  }
+  //function to fetch data from <input/>
+  onChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   render() {
     return (
       <div className="App">
+        <input type="text" onChange={this.onChange} name="user" value={this.state.user}/>
         <button onClick={this.add}>Add user</button>
       </div>
     );
