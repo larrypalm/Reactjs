@@ -1,3 +1,5 @@
+import firebase from '../firebase.js';
+
 export function addMovies(){
   return function(dispatch){
     fetch('http://fend-api.herokuapp.com/movies?_limit=20')
@@ -7,6 +9,9 @@ export function addMovies(){
             type: 'ADD_MOVIES',
             movies
           })
+      })
+      .catch(error => {
+        dispatch({type: 'FETCH_ERROR', error: error.message})
       })
   }
 

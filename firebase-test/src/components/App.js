@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators} from 'redux';
 import * as actions from '../actions/actions.js';
-import '../App.css';
+import firebase from '../firebase.js'
 
+import '../App.css';
 class App extends Component {
 
   state = {
@@ -13,6 +14,9 @@ class App extends Component {
 
   componentDidMount(){
     this.props.actions.addMovies();
+    //reference to db
+    // firebase.database().ref("movies")
+    //   .push({text: "The Matrix", seen: "Yes"})
   }
 
   add = () => {

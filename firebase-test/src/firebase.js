@@ -1,3 +1,4 @@
+//config firebase
 import firebase from 'firebase';
 
 const config = {
@@ -11,3 +12,5 @@ const config = {
 firebase.initializeApp(config);
 
 export default firebase;
+
+//import it to actions.js
