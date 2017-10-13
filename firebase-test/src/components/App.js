@@ -21,7 +21,7 @@ class App extends Component {
 
   add = () => {
 
-    this.props.actions.addUser({
+    this.props.actions.postMovie({
       name: this.state.user,
       age: 25
     });
