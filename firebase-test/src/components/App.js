@@ -13,7 +13,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    this.props.actions.addMovies();
+    //this.props.actions.addMovies();
     //reference to db
     // firebase.database().ref("movies")
     //   .push({text: "The Matrix", seen: "Yes"})
@@ -21,11 +21,11 @@ class App extends Component {
 
   add = () => {
 
-    this.props.actions.postMovie({
-      name: this.state.user,
+    this.props.actions.addMovies({
+      name: this.state.movies,
       age: 25
     });
-    this.setState({user: ""});
+    this.setState({movie: ""});
 
   }
   //function to fetch data from <input/>
@@ -37,7 +37,7 @@ class App extends Component {
     return (
       <div className="App">
         <input type="text" onChange={this.onChange} name="user" value={this.state.user}/>
-        <button onClick={this.add}>Add user</button>
+        <button onClick={this.add}>Add movie</button>
       </div>
     );
   }
@@ -52,7 +52,8 @@ function mapDispatchToProps(dispatch){
 function mapStateToProps(state){
   return {
     movies: state.movies,
-    user: state.user
+    user: state.user,
+    error: state.error
   }
 }
 

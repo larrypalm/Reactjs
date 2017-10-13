@@ -6,10 +6,12 @@ import {
 import thunk from 'redux-thunk';
 import movies from '../reducers/movies.js';
 import users from '../reducers/users.js';
+import error from '../reducers/error.js';
 
 const rootReducer = combineReducers({
   movies,
-  users
+  users,
+  error
 });
 
 const store = createStore(
