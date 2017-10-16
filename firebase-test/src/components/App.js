@@ -13,10 +13,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    //this.props.actions.addMovies();
-    //reference to db
-    // firebase.database().ref("movies")
-    //   .push({text: "The Matrix", seen: "Yes"})
+    this.props.actions.fetchMovies();
   }
 
   add = () => {
@@ -36,7 +33,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <input type="text" onChange={this.onChange} name="user" value={this.state.user}/>
+        <input type="text" onChange={this.onChange} name="movies" value={this.state.movie}/>
         <button onClick={this.add}>Add movie</button>
       </div>
     );
